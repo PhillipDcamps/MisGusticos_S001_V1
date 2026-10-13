@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Gusticos - Iniciar Sesión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="auth-page">
+    <!-- SIDEBAR IZQUIERDO (diseño original) -->
+    <aside class="auth-sidebar">
+        <div class="sidebar-brand">
+            <span class="material-icons">savings</span>
+            <span>Mis Gusticos</span>
+            <span class="badge">Cajero Digital • SNBL</span>
+        </div>
+        <div class="sidebar-content">
+            <h2>Bienvenido de nuevo</h2>
+            <p>Ahorra a tu ritmo para darte los gustos que mereces.</p>
+        </div>
+    </aside>
+
+    <!-- FORMULARIO LOGIN -->
+    <main class="auth-main">
+        <div class="auth-card">
+            <h2>Iniciar sesión</h2>
+            <p>Ingresa a tu cajero digital y administra tus ahorros.</p>
+
+            <!-- MENSAJE DE FEEDBACK -->
+            <div id="mensaje-feedback" class="mensaje-feedback" style="display:none;"></div>
+
+            <!-- CONTADOR DE INTENTOS -->
+            <div id="contador-intentos" class="intentos-counter">
+                Intentos: <span id="intentos-numero">0</span>/3
+            </div>
+
+            <form id="form-login" autocomplete="off">
+                <!-- CORREO -->
+                <div class="form-group">
+                    <label for="login-usuario">Correo electrónico</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">mail</span>
+                        <input type="email" id="login-usuario" name="usuario" 
+                               placeholder="tucorreo@email.com" required>
+                    </div>
+                    <span class="error-msg" id="error-usuario" style="display:none;">
+                        Por favor ingresa un correo válido
+                    </span>
+                </div>
+
+                <!-- CONTRASEÑA -->
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">lock</span>
+                        <input type="password" id="login-password" name="password" 
+                               placeholder="••••••••" required>
+                        <button type="button" class="toggle-password" id="toggle-password">
+                            <span class="material-icons">visibility</span>
+                        </button>
+                    </div>
+                    <span class="error-msg" id="error-password" style="display:none;">
+                        La contraseña es requerida
+                    </span>
+                </div>
+
+                <!-- RECORDAR -->
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="recordar-correo">
+                        Recordar mi correo
+                    </label>
+                    <a href="#" class="link-forgot">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="btn-primary btn-submit" id="btn-login">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <p class="auth-switch">
+                ¿No tienes cuenta? <a href="registro.html">Crear una</a>
+            </p>
+
+            <div class="social-login">
+                <p>o continúa con</p>
+                <div class="social-buttons">
+                    <button class="btn-social">Google</button>
+                    <button class="btn-social">Facebook</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/models/Cliente.js"></script>
+    <script src="js/models/Cuenta.js"></script>
+    <script src="js/models/CuentaAhorros.js"></script>
+    <script src="js/models/CuentaCorriente.js"></script>
+    <script src="js/models/TarjetaCredito.js"></script>
+    <script src="js/services/StorageService.js"></script>
+    <script src="js/services/AuthService.js"></script>
+    <script src="js/controllers/AuthController.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

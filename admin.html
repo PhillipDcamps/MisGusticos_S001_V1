@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Gusticos - Administración</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard-page">
+    <header class="dashboard-header">
+        <div class="header-brand">
+            <span class="material-icons">admin_panel_settings</span>
+            <span>Administración - Mis Gusticos</span>
+        </div>
+        <div class="header-user">
+            <button id="btn-volver-dashboard" class="btn-secondary">
+                <span class="material-icons">arrow_back</span> Volver
+            </button>
+            <button id="btn-logout" class="btn-logout">
+                <span class="material-icons">logout</span> Cerrar sesión
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div id="mensaje-admin" class="mensaje-feedback" style="display:none;"></div>
+
+        <section class="admin-section">
+            <div class="section-header">
+                <h2>Gestión de Usuarios</h2>
+                <button id="btn-nuevo-usuario" class="btn-primary">
+                    <span class="material-icons">person_add</span> Nuevo Usuario
+                </button>
+            </div>
+
+            <div id="tabla-usuarios" class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Documento</th>
+                            <th>Correo</th>
+                            <th>Celular</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body-tabla-usuarios">
+                        <!-- Se llena dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL: CREAR/EDITAR USUARIO -->
+    <div id="modal-usuario" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="titulo-modal-usuario">Nuevo Usuario</h3>
+                <button class="modal-close" data-close="modal-usuario">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <form id="form-usuario">
+                <input type="hidden" id="usuario-id">
+                <div class="form-group">
+                    <label for="usu-nombre">Nombre completo</label>
+                    <input type="text" id="usu-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="usu-identificacion">Documento</label>
+                    <input type="text" id="usu-identificacion" required>
+                </div>
+                <div class="form-group">
+                    <label for="usu-celular">Celular</label>
+                    <input type="tel" id="usu-celular" required>
+                </div>
+                <div class="form-group">
+                    <label for="usu-correo">Correo</label>
+                    <input type="email" id="usu-correo" required>
+                </div>
+                <div class="form-group" id="grupo-password">
+                    <label for="usu-password">Contraseña</label>
+                    <input type="password" id="usu-password" minlength="8">
+                    <small id="hint-password">Dejar vacío para no cambiar (al editar)</small>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-close="modal-usuario">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/models/Cliente.js"></script>
+    <script src="js/models/Cuenta.js"></script>
+    <script src="js/models/CuentaAhorros.js"></script>
+    <script src="js/models/CuentaCorriente.js"></script>
+    <script src="js/models/TarjetaCredito.js"></script>
+    <script src="js/services/StorageService.js"></script>
+    <script src="js/services/AuthService.js"></script>
+    <script src="js/controllers/AdminController.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

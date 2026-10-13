@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Gusticos - Crear Cuenta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="auth-page">
+    <aside class="auth-sidebar">
+        <div class="sidebar-brand">
+            <span class="material-icons">savings</span>
+            <span>Mis Gusticos</span>
+            <span class="badge">Banca Digital</span>
+        </div>
+        <div class="sidebar-content">
+            <h2>Únete a Mis Gusticos</h2>
+            <p>Abre tu cajero digital en minutos.</p>
+        </div>
+    </aside>
+
+    <main class="auth-main">
+        <div class="auth-card auth-card-large">
+            <h2>Crear tu cuenta</h2>
+            <p>Empieza a ahorrar en minutos.</p>
+
+            <!-- MENSAJE FEEDBACK -->
+            <div id="mensaje-feedback" class="mensaje-feedback" style="display:none;"></div>
+
+            <!-- MENSAJE ÉXITO (oculto inicialmente) -->
+            <div id="mensaje-exito" class="mensaje-success-box" style="display:none;">
+                <span class="material-icons">check_circle</span>
+                <h3>¡Cuenta creada correctamente!</h3>
+                <p>Ya puedes iniciar sesión con tu correo y contraseña.</p>
+                <a href="iniciarSesion.html" class="btn-primary">Ir a iniciar sesión</a>
+            </div>
+
+            <form id="form-registro">
+                <!-- NOMBRE -->
+                <div class="form-group">
+                    <label for="reg-nombre">Nombre completo</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">person</span>
+                        <input type="text" id="reg-nombre" required placeholder="Juan Pérez">
+                    </div>
+                </div>
+
+                <!-- TIPO DOCUMENTO -->
+                <div class="form-group">
+                    <label for="reg-tipo-doc">Tipo de documento</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">badge</span>
+                        <select id="reg-tipo-doc" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="CC">Cédula de Ciudadanía</option>
+                            <option value="CE">Cédula de Extranjería</option>
+                            <option value="PAS">Pasaporte</option>
+                            <option value="NIT">NIT</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- NÚMERO DOCUMENTO -->
+                <div class="form-group">
+                    <label for="reg-identificacion">Número de documento</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">numbers</span>
+                        <input type="text" id="reg-identificacion" required placeholder="1234567890">
+                    </div>
+                </div>
+
+                <!-- CELULAR -->
+                <div class="form-group">
+                    <label for="reg-celular">Celular</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">phone</span>
+                        <input type="tel" id="reg-celular" required placeholder="3001234567">
+                    </div>
+                </div>
+
+                <!-- CORREO (usuario) -->
+                <div class="form-group">
+                    <label for="reg-usuario">Correo electrónico</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">mail</span>
+                        <input type="email" id="reg-usuario" required placeholder="tucorreo@email.com">
+                    </div>
+                </div>
+
+                <!-- CONTRASEÑA -->
+                <div class="form-group">
+                    <label for="reg-password">Contraseña</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">lock</span>
+                        <input type="password" id="reg-password" required placeholder="Mínimo 8 caracteres"
+                            minlength="8">
+                    </div>
+                </div>
+
+                <!-- CONFIRMAR CONTRASEÑA -->
+                <div class="form-group">
+                    <label for="reg-password-confirm">Confirmar contraseña</label>
+                    <div class="input-with-icon">
+                        <span class="material-icons">lock</span>
+                        <input type="password" id="reg-password-confirm" required placeholder="Repite tu contraseña">
+                    </div>
+                </div>
+
+                <!-- TÉRMINOS -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="reg-terminos" required>
+                        Acepto los <a href="#">Términos y Condiciones</a> y la
+                        <a href="#">Política de Datos</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary btn-submit">
+                    <span class="material-icons" aria-hidden="true">person_add</span>
+                    Crear Mi Cuenta
+                </button>
+            </form>
+
+            <p class="auth-switch">
+                ¿Ya tienes cuenta? <a href="iniciarSesion.html">Iniciar sesión</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="js/models/Cliente.js"></script>
+    <script src="js/models/Cuenta.js"></script>
+    <script src="js/models/CuentaAhorros.js"></script>
+    <script src="js/models/CuentaCorriente.js"></script>
+    <script src="js/models/TarjetaCredito.js"></script>
+    <script src="js/services/StorageService.js"></script>
+    <script src="js/services/AuthService.js"></script>
+    <script src="js/controllers/AuthController.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

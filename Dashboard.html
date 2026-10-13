@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Gusticos - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard-page">
+    <!-- HEADER -->
+    <header class="dashboard-header">
+        <div class="header-brand">
+            <span class="material-icons">account_balance_wallet</span>
+            <span>Mis Gusticos</span>
+        </div>
+        <div class="header-user">
+            <span id="nombre-cliente">Hola, Usuario 👋</span>
+            <button id="btn-logout" class="btn-logout">
+                <span class="material-icons">logout</span>
+                Cerrar sesión
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <!-- MENSAJE FEEDBACK -->
+        <div id="mensaje-panel" class="mensaje-feedback" style="display:none;"></div>
+
+        <!-- SALDO DISPONIBLE -->
+        <section class="balance-section">
+            <div id="lista-saldos" class="balance-cards">
+                <!-- Las tarjetas de saldo se generan dinámicamente -->
+            </div>
+        </section>
+
+        <!-- ACCIONES RÁPIDAS -->
+        <section class="actions-section">
+            <h3>Acciones rápidas</h3>
+            <div class="action-buttons">
+                <button id="btn-consignar" class="action-button">
+                    <span class="material-icons">arrow_downward</span>
+                    <span>Consignar</span>
+                </button>
+                <button id="btn-retirar" class="action-button">
+                    <span class="material-icons">arrow_upward</span>
+                    <span>Retirar</span>
+                </button>
+                <button id="btn-transferir" class="action-button">
+                    <span class="material-icons">send</span>
+                    <span>Transferir</span>
+                </button>
+                <button id="btn-comprar" class="action-button">
+                    <span class="material-icons">shopping_cart</span>
+                    <span>Comprar</span>
+                </button>
+                <button id="btn-movimientos" class="action-button">
+                    <span class="material-icons">receipt_long</span>
+                    <span>Movimientos</span>
+                </button>
+                <button id="btn-perfil" class="action-button">
+                    <span class="material-icons">person</span>
+                    <span>Perfil</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- MOVIMIENTOS RECIENTES -->
+        <section class="movements-section">
+            <h3>Movimientos recientes</h3>
+            <div class="movements-filter">
+                <label for="cuenta-movimientos">Cuenta:</label>
+                <select id="cuenta-movimientos">
+                    <option value="">Seleccione una cuenta</option>
+                </select>
+                <button id="btn-ver-movimientos" class="btn-secondary">Ver</button>
+            </div>
+            <div id="lista-movimientos" class="movements-list">
+                <p class="empty-state">
+                    Realiza tu primera operación para ver el historial.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL: CONSIGNAR -->
+    <div id="modal-consignar" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Consignar dinero</h3>
+                <button class="modal-close" data-close="modal-consignar">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <form id="form-consignar">
+                <div class="form-group">
+                    <label for="cuenta-consignar">Cuenta destino</label>
+                    <select id="cuenta-consignar" required>
+                        <option value="">Seleccione una cuenta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="monto-consignar">Monto (COP)</label>
+                    <input type="number" id="monto-consignar" min="1" step="100" 
+                           placeholder="$ 0" required>
+                </div>
+                <button type="submit" class="btn-primary">Confirmar consignación</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: RETIRAR -->
+    <div id="modal-retirar" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Retirar dinero</h3>
+                <button class="modal-close" data-close="modal-retirar">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <form id="form-retirar">
+                <div class="form-group">
+                    <label for="cuenta-retirar">Cuenta origen</label>
+                    <select id="cuenta-retirar" required>
+                        <option value="">Seleccione una cuenta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="monto-retirar">Monto (COP)</label>
+                    <input type="number" id="monto-retirar" min="1" step="100" 
+                           placeholder="$ 0" required>
+                </div>
+                <div id="info-sobregiro" class="info-box" style="display:none;">
+                    <span class="material-icons">info</span>
+                    <span>Cuenta corriente permite 20% de sobregiro</span>
+                </div>
+                <button type="submit" class="btn-primary">Confirmar retiro</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: TRANSFERIR -->
+    <div id="modal-transferir" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Transferir dinero</h3>
+                <button class="modal-close" data-close="modal-transferir">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <form id="form-transferir">
+                <div class="form-group">
+                    <label for="cuenta-origen">Cuenta origen</label>
+                    <select id="cuenta-origen" required>
+                        <option value="">Seleccione una cuenta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cuenta-destino">Cuenta destino (número)</label>
+                    <input type="text" id="cuenta-destino" required 
+                           placeholder="CTA-XXXXX">
+                </div>
+                <div class="form-group">
+                    <label for="monto-transferir">Monto (COP)</label>
+                    <input type="number" id="monto-transferir" min="1" step="100" 
+                           placeholder="$ 0" required> <!--step="100"-->
+                </div>
+                <button type="submit" class="btn-primary">Confirmar envío</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: COMPRAR CON TARJETA -->
+    <div id="modal-comprar" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Comprar con tarjeta de crédito</h3>
+                <button class="modal-close" data-close="modal-comprar">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <form id="form-comprar">
+                <div class="form-group">
+                    <label for="cuenta-comprar">Tarjeta de crédito</label>
+                    <select id="cuenta-comprar" required>
+                        <option value="">Seleccione una tarjeta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="monto-comprar">Monto (COP)</label>
+                    <input type="number" id="monto-comprar" min="1" step="100" 
+                           placeholder="$ 0" required>
+                </div>
+                <div class="form-group">
+                    <label for="cuotas-comprar">Número de cuotas</label>
+                    <select id="cuotas-comprar" required>
+                        <option value="1">1 cuota (0% interés)</option>
+                        <option value="2">2 cuotas (0% interés)</option>
+                        <option value="3">3 cuotas (1.9% mensual)</option>
+                        <option value="6">6 cuotas (1.9% mensual)</option>
+                        <option value="9">9 cuotas (2.3% mensual)</option>
+                        <option value="12">12 cuotas (2.3% mensual)</option>
+                    </select>
+                </div>
+                <div id="resultado-cuota" class="info-box" style="display:none;">
+                    <strong>Cuota mensual estimada:</strong>
+                    <span id="valor-cuota">$0</span>
+                </div>
+                <button type="submit" class="btn-primary">Confirmar compra</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: MOVIMIENTOS -->
+    <div id="modal-movimientos" class="modal" style="display:none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Historial de movimientos</h3>
+                <button class="modal-close" data-close="modal-movimientos">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div id="lista-movimientos-modal" class="movements-list"></div>
+        </div>
+    </div>
+
+    <script src="js/models/Cliente.js"></script>
+    <script src="js/models/Cuenta.js"></script>
+    <script src="js/models/CuentaAhorros.js"></script>
+    <script src="js/models/CuentaCorriente.js"></script>
+    <script src="js/models/TarjetaCredito.js"></script>
+    <script src="js/services/StorageService.js"></script>
+    <script src="js/services/AuthService.js"></script>
+    <script src="js/services/TransactionService.js"></script>
+    <script src="js/controllers/AuthController.js"></script>
+    <script src="js/controllers/TransactionController.js"></script>
+    <script src="js/controllers/ProfileController.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
