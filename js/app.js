@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (path.includes('registro')) {
         new AuthController();
     } else if (path.includes('dashboard')) {
-        new TransactionController();
+        const transactionController = new TransactionController();
+        // Comparte el mismo cliente con el módulo de divisas
+        new ExchangeController(transactionController);
     } else if (path.includes('perfil')) {
         new ProfileController();
     } else if (path.includes('admin')) {

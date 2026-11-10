@@ -32,6 +32,9 @@
 
         <!-- SALDO DISPONIBLE -->
         <section class="balance-section">
+            <!-- DIVISAS: USD | EUR | BTC (las genera exchangeController.js) -->
+            <div id="lista-divisas" class="balance-cards currency-cards" aria-label="Saldos en divisas"></div>
+
             <div id="lista-saldos" class="balance-cards">
                 <!-- Las tarjetas de saldo se generan dinámicamente -->
             </div>
@@ -56,6 +59,10 @@
                 <button id="btn-comprar" class="action-button">
                     <span class="material-icons">shopping_cart</span>
                     <span>Comprar</span>
+                </button>
+                <button id="btn-exchange" class="action-button">
+                    <span class="material-icons">currency_exchange</span>
+                    <span>Exchange</span>
                 </button>
                 <button id="btn-movimientos" class="action-button">
                     <span class="material-icons">receipt_long</span>
@@ -104,7 +111,7 @@
                 </div>
                 <div class="form-group">
                     <label for="monto-consignar">Monto (COP)</label>
-                    <input type="number" id="monto-consignar" min="1" step="100" 
+                    <input type="number" id="monto-consignar" min="100" step="100" 
                            placeholder="$ 0" required>
                 </div>
                 <button type="submit" class="btn-primary">Confirmar consignación</button>
@@ -130,7 +137,7 @@
                 </div>
                 <div class="form-group">
                     <label for="monto-retirar">Monto (COP)</label>
-                    <input type="number" id="monto-retirar" min="1" step="100" 
+                    <input type="number" id="monto-retirar" min="100" step="100" 
                            placeholder="$ 0" required>
                 </div>
                 <div id="info-sobregiro" class="info-box" style="display:none;">
@@ -165,7 +172,7 @@
                 </div>
                 <div class="form-group">
                     <label for="monto-transferir">Monto (COP)</label>
-                    <input type="number" id="monto-transferir" min="1" step="100" 
+                    <input type="number" id="monto-transferir" min="100" step="100" 
                            placeholder="$ 0" required> <!--step="100"-->
                 </div>
                 <button type="submit" class="btn-primary">Confirmar envío</button>
@@ -191,7 +198,7 @@
                 </div>
                 <div class="form-group">
                     <label for="monto-comprar">Monto (COP)</label>
-                    <input type="number" id="monto-comprar" min="1" step="100" 
+                    <input type="number" id="monto-comprar" min="100" step="100" 
                            placeholder="$ 0" required>
                 </div>
                 <div class="form-group">
@@ -214,6 +221,52 @@
         </div>
     </div>
 
+    <!-- MODAL: EXCHANGE DE DIVISAS -->
+    <div id="modal-exchange" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Exchange de divisas</h3>
+                <button class="modal-close" data-close="modal-exchange">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <form id="form-exchange" novalidate>
+                <div class="form-group">
+                    <label for="exchange-origen">Desde</label>
+                    <select id="exchange-origen" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="exchange-destino">Hacia</label>
+                    <select id="exchange-destino" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="exchange-monto">Monto a cambiar (COP)</label>
+                    <input type="number" id="exchange-monto" min="0" step="0.01"
+                           placeholder="0" required>
+                    <small>Disponible: $ 0,00</small>
+                </div>
+                <div class="exchange-preview" aria-live="polite">
+                    <div class="exchange-preview-side">
+                        <span class="exchange-preview-label">Valor actual</span>
+                        <strong data-preview="actual">$ 0,00</strong>
+                        <small data-preview="actual-cop"></small>
+                    </div>
+                    <span class="material-icons exchange-preview-arrow">arrow_forward</span>
+                    <div class="exchange-preview-side">
+                        <span class="exchange-preview-label">Recibirás</span>
+                        <strong data-preview="futuro">—</strong>
+                        <small data-preview="futuro-cop"></small>
+                    </div>
+                    <div class="exchange-preview-footer">
+                        <span data-preview="tasa"></span>
+                        <span data-preview="saldo-despues"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" disabled>Confirmar exchange</button>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL: MOVIMIENTOS -->
     <div id="modal-movimientos" class="modal" style="display:none;">
         <div class="modal-content modal-large">
@@ -232,11 +285,14 @@
     <script src="js/models/CuentaAhorros.js"></script>
     <script src="js/models/CuentaCorriente.js"></script>
     <script src="js/models/TarjetaCredito.js"></script>
+    <script src="js/models/Transaction.js"></script>
     <script src="js/services/StorageService.js"></script>
     <script src="js/services/AuthService.js"></script>
     <script src="js/services/TransactionService.js"></script>
+    <script src="js/services/currencyService.js"></script>
     <script src="js/controllers/AuthController.js"></script>
     <script src="js/controllers/TransactionController.js"></script>
+    <script src="js/controllers/exchangeController.js"></script>
     <script src="js/controllers/ProfileController.js"></script>
     <script src="js/app.js"></script>
 </body>
